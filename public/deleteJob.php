@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-//TODO add more checks for REQUEST type and songName and artistName validity
 if (!isset($_POST['deleteJob'])){
     header("Location: /index.php");
 }
