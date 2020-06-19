@@ -3,7 +3,7 @@
 session_start();
 require_once "../config/config.php";
 require_once "../src/templates/header.php";
-include "../src/templates/jobFilterForm.html";
+include "../src/templates/jobSearchForm.html";
 include "../src/templates/addJobForm.html";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -31,12 +31,18 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // var_dump($row);
         $jobid = $row["id"];
-        $html = "ID: " . $row["id"];
-        $html .= " JOB: " . $row["job"];
+        $job = $row["job"];
+        // $job = $row["job"];
+        $html = "<form action='updateJob.php' method='post'>";
+        $html .= "ID: " . $row["id"];
+        $html .= " <input name='jobName' value='$job'>";
         $html .= " ADDED: " . $row["added"];
         $html .= " UPDATED: " . $row["updated"];
+        $html .= " <button type='submit' name='updateJob' value='$jobid'>";
+        $html .= "UPDATE JOB</button>";
+        $html .= "</form>";
         $html .= "<form action='deleteJob.php' method='post'>";
-        $html .= "<button type='submit' name= 'deleteJob' value= '$jobid'>";
+        $html .= "<button type='submit' name='deleteJob' value= '$jobid'>";
         $html .= "DELETE JOB</button>";
         $html .= "</form>";
         $html .= "<hr>";

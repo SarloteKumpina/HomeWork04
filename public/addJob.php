@@ -3,7 +3,7 @@ session_start();
 
 //TODO add more checks for REQUEST type and songName and artistName validity
 if (!isset($_POST['addJob'])){
-    header("Location: /index.php");
+    header("Location: /");
 }
 
 require_once "../config/config.php";
@@ -13,7 +13,7 @@ $jobName = $_POST['jobName'];
 $stmt = $conn->prepare("INSERT INTO todo (job) VALUE (?)");
 $stmt->bind_param("s", $jobName);
 $stmt->execute();
-header("Location: /index.php");
+header("Location: /");
 
 
 die("for now");

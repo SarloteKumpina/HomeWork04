@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_POST['deleteJob'])){
-    header("Location: /index.php");
+    header("Location: /");
 }
 
 require_once "../config/config.php";
@@ -11,4 +11,4 @@ $jobid = $_POST['deleteJob'];
 $stmt = $conn->prepare("DELETE FROM todo WHERE id = (?)");
 $stmt->bind_param("d", $jobid);
 $stmt->execute();
-header("Location: /index.php");
+header("Location: /");
