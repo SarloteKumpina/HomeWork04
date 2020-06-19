@@ -2,16 +2,22 @@
 // echo "Hello June 16th!";
 session_start();
 require_once "../config/config.php";
+
+if (!isset($_SESSION['userName'])) {
+  include "../src/templates/loginForm.html";
+  exit();
+}
 require_once "../src/templates/header.php";
 include "../src/templates/jobSearchForm.html";
 include "../src/templates/addJobForm.html";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// if($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
-// echo "Connected successfully";
+//CHECK FOR CONNECTION LATER DELETE
+if($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
 
 //NOT SAFE!!!
 if(isset($_GET['jobName'])) {
