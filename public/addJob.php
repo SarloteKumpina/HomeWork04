@@ -6,12 +6,17 @@ if (!isset($_POST['addJob'])){
     header("Location: /");
 }
 
+if(!isset($_SESSION['id'])) {
+    header("Location: /");
+}
+
 require_once "../config/config.php";
 $conn = new mysqli($servername, $username, $password, $dbname);
-$jobName = $_POST['jobName']; 
+$jobName = $_POST['jobName'];
+$userid = $_SESSION['id'];
 // $dueDate = $_POST['dueDate'];
-$stmt = $conn->prepare("INSERT INTO todo (job) VALUE (?)");
-$stmt->bind_param("s", $jobName);
+$stmt = $conn->prepare("INSERT INTO todo (job,user_id) VALUE ((?), (?))");
+$stmt->bind_param("sd", $jobName, $userid);
 $stmt->execute();
 header("Location: /");
 

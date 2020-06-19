@@ -10,14 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        var_dump($row);
-        die("for now");
-    }
-
-    // echo "Cool got POST method that will save my login!!!";
-    if (isset($_POST['userName'])) {
-       $_SESSION['userName'] = $_POST['userName'];
-       echo "Session saved!!!";
+        // var_dump($row);
+        // die("for now");
+        $_SESSION['user'] = $row['user_name'];
+        $_SESSION['id'] = $row['user_id'];
     }
 }
+
 header("Location: /");

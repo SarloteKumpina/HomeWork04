@@ -3,11 +3,20 @@
 session_start();
 require_once "../config/config.php";
 
-if (!isset($_SESSION['userName'])) {
+if (!isset($_SESSION['user'])) {
   include "../src/templates/loginForm.html";
   exit();
 }
+
+if (!isset($_SESSION['id'])) {
+  include "../src/templates/loginForm.html";
+  exit();
+}
+
+echo "Hello " . $_SESSION['user'] . " your id is " . $_SESSION['id'] . "<hr>";
+
 require_once "../src/templates/header.php";
+include "../src/templates/logoutForm.html";
 include "../src/templates/jobSearchForm.html";
 include "../src/templates/addJobForm.html";
 
@@ -22,13 +31,21 @@ echo "Connected successfully";
 //NOT SAFE!!!
 if(isset($_GET['jobName'])) {
   $jobName = "%" . $_GET['jobName'] . "%";
-  $stmt = $conn->prepare("SELECT * FROM todo WHERE job LIKE (?)");
-  $stmt->bind_param("s", $jobName); 
+  $stmt = $conn->prepare("SELECT * 
+          FROM todo 
+          WHERE job 
+          LIKE (?)
+          AND user_id = (?)");
+  $stmt->bind_param("sd", $jobName, $_SESSION['id']); 
   $stmt->execute();
   $result = $stmt->get_result();
 } else {
-  $sql= "SELECT * FROM todo";
-  $result= $conn->query($sql);
+  $stmt = $conn->prepare("SELECT * 
+          FROM todo 
+          WHERE user_id = (?)");
+  $stmt->bind_param("d", $_SESSION['id']); 
+  $stmt->execute();
+  $result = $stmt->get_result();
 }
 
 if ($result->num_rows > 0) {
