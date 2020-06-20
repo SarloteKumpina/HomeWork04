@@ -3,13 +3,15 @@
 session_start();
 require_once "../config/config.php";
 
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user']) ) {
   include "../src/templates/loginForm.html";
+  include "../src/templates/signUpForm.html";
   exit();
 }
 
 if (!isset($_SESSION['id'])) {
   include "../src/templates/loginForm.html";
+  include "../src/templates/signUpForm.html";
   exit();
 }
 
@@ -49,7 +51,7 @@ if(isset($_GET['jobName'])) {
 }
 
 if ($result->num_rows > 0) {
-    echo "Cool we got " . $result->num_rows . " rows of data!<hr>";
+    // echo "Cool we got " . $result->num_rows . " rows of data!<hr>";
     // output data of each row
     while ($row = $result->fetch_assoc()) {
         // var_dump($row);
