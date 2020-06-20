@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $result = $stmt->get_result();
         
         if ($result->num_rows != 1) {
-            header("Location: /?unsucesfull_login=true");
+            header("Location: /?unsucessfull_login=true");
             exit();
         }
 
@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (password_verify($_POST['password'], $row['hash'])) {
                 $_SESSION['user'] = $row['user_name'];
                 $_SESSION['id'] = $row['user_id'];
-                header("Location: /?sucesfull_login=true");
+                header("Location: /?sucessfull_login=true");
         } else {
-            header("Location: /?unsucesfull_login=true");
+            header("Location: /?unsucessfull_login=true");
             exit();
         }  
     }

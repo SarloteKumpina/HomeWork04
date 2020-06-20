@@ -1,3 +1,21 @@
 body {
-    background-color: skyblue;
+    background-color: gray;
+}
+
+.login-form {
+    background-color: seagreen;
+}
+
+.sign-up-form {
+    background-color: cadetblue;
+}
+
+.job-to-do {
+    margin: 5px;
+    background-color: darkcyan;
+}
+
+.job-done {
+    margin: 15px;
+    background-color: rgb(35, 177, 90)
 }

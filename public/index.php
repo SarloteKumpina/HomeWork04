@@ -2,22 +2,24 @@
 // echo "Hello June 16th!";
 session_start();
 require_once "../config/config.php";
+require_once "../src/templates/header.php";
 
-if (!isset($_SESSION['user']) ) {
+if (!isset($_SESSION['user']) || !isset($_SESSION['id'])) {
+  if (isset($_GET['unsucessfull_login'])){
+    include "../src/templates/unsucessfullLogin.html";
+  }
   include "../src/templates/loginForm.html";
   include "../src/templates/signUpForm.html";
+  include "../src/templates/footer.html";
   exit();
 }
 
-if (!isset($_SESSION['id'])) {
-  include "../src/templates/loginForm.html";
-  include "../src/templates/signUpForm.html";
-  exit();
+if(isset($_GET['sucessfull_login'])) {
+  include "../src/templates/sucessfullLogin.html";
 }
 
 echo "Hello " . $_SESSION['user'] . " your id is " . $_SESSION['id'] . "<hr>";
 
-require_once "../src/templates/header.php";
 include "../src/templates/logoutForm.html";
 include "../src/templates/jobSearchForm.html";
 include "../src/templates/addJobForm.html";
@@ -55,11 +57,22 @@ if ($result->num_rows > 0) {
     // output data of each row
     while ($row = $result->fetch_assoc()) {
         // var_dump($row);
+        
+        $classes = "job-to-do";
+        $checked = "";
+        if ($row["done"]) {
+          $classes .= " job-done";
+          $checked = "checked";
+        }
+
         $jobid = $row["id"];
         $job = $row["job"];
+        // $isDone = $row["done"];
         // $job = $row["job"];
-        $html = "<form action='updateJob.php' method='post'>";
+        $html = "<div class='$classes'>";
+        $html .= "<form action='updateJob.php' method='post'>";
         $html .= "ID: " . $row["id"];
+        $html .= "<input type='checkbox' name='isDone' $checked>";
         $html .= " <input name='jobName' value='$job'>";
         $html .= " ADDED: " . $row["added"];
         $html .= " UPDATED: " . $row["updated"];
@@ -70,7 +83,7 @@ if ($result->num_rows > 0) {
         $html .= "<button type='submit' name='deleteJob' value= '$jobid'>";
         $html .= "DELETE JOB</button>";
         $html .= "</form>";
-        $html .= "<hr>";
+        $html .= "</div>";
         echo $html;
     }
   } else {
