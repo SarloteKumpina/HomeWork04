@@ -1,5 +1,6 @@
 <?php
-session_start();
+require "../src/checkSession.php";
+
 
 if (!isset($_POST['updateJob'])){
     header("Location: /");
@@ -21,7 +22,8 @@ $stmt = $conn->prepare("UPDATE todo
             SET done = (?) ,job = (?), 
             updated = CURRENT_TIMESTAMP(), 
             due_date = STR_TO_DATE((?), '%Y-%m-%d')
-            WHERE id = (?)");
-$stmt->bind_param("dssd", $isDone, $jobName, $duedate, $jobid);
+            WHERE id = (?)
+            AND user_id = (?)");
+$stmt->bind_param("dssdd", $isDone, $jobName, $duedate, $jobid, $_SESSION['id']);
 $stmt->execute();
 header("Location: /");

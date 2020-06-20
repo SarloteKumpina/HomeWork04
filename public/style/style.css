@@ -11,11 +11,11 @@ body {
 }
 
 .job-to-do {
-    margin: 5px;
+    margin: 10px;
     background-color: darkcyan;
 }
 
 .job-done {
-    margin: 15px;
+    margin: 10px;
     background-color: rgb(35, 177, 90)
 }

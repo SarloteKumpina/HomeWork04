@@ -13,10 +13,11 @@ if(!isset($_SESSION['id'])) {
 require_once "../config/config.php";
 $conn = new mysqli($servername, $username, $password, $dbname);
 $jobName = $_POST['jobName'];
+$duedate = $_POST['jobDueDate'];
 $userid = $_SESSION['id'];
-// $dueDate = $_POST['dueDate'];
-$stmt = $conn->prepare("INSERT INTO todo (job,user_id) VALUE ((?), (?))");
-$stmt->bind_param("sd", $jobName, $userid);
+
+$stmt = $conn->prepare("INSERT INTO todo (job, due_date, user_id) VALUE ((?), (?), (?))");
+$stmt->bind_param("ssd", $jobName, $duedate, $userid);
 $stmt->execute();
 header("Location: /");
 
