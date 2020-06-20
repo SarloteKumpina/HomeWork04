@@ -4,7 +4,7 @@ body {
 }
 footer {
     background-color: #9c9c9c;
-    margin: 20px;
+    /* margin: 10px; */
 }
 
 .login-form {
@@ -54,4 +54,11 @@ footer {
     color: #ffb950;
     font-size: large
 }
+
+.login-username {
+    background-color: #dfff50
+}
+
+.signup-username {
+    background-color: #ffb950
 }

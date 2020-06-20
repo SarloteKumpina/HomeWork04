@@ -85,13 +85,13 @@ if ($result->num_rows > 0) {
         $html .= "<input type='checkbox' name='isDone' $checked>";
         $html .= " <input name='taskName' value='$task'>";
         $html .= " DUE DATE: ";
-        $html .= " <input type='date' name='dueDate' value='$duedate'>";
+        $html .= "<input type='date' name='dueDate' value='$duedate'>";
         // $html .= " ADDED: " . $row["added"];
         // $html .= " UPDATED: " . $row["updated"];
-        $html .= " <button type='submit' class='btn btn-secondary mb-2' name='updateTask' value='$taskid'>";
+        $html .= "<button type='submit' class='btn btn-secondary mb-2' name='updateTask' value='$taskid'>";
         $html .= "UPDATE TASK</button>";
         $html .= "<form action='deleteTask.php' method='post'>";
-        $html .= "<button type='submit' class='btn btn-secondary mb-2' name='deleteTask' value= '$taskid'>";
+        $html .= "<button type='submit' class='btn btn-secondary mb-2' name='deletetask' value='$taskid'>";
         $html .= "DELETE TASK</button>";
         $html .= "</form>";
         $html .= "<span class='days-left'> $days days left untill due date</span>";
