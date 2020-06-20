@@ -46,14 +46,14 @@ if(isset($_GET['dueDate']) || isset($_GET['taskName'])) {
     $stmt->bind_param("ssd", $dueDate, $taskName, $_SESSION['id']); 
     $stmt->execute();
     $result = $stmt->get_result();
-  // } else {
-  // $stmt = $conn->prepare("SELECT * 
-  //         FROM todo 
-  //         WHERE user_id = (?)
-  //         ORDER BY due_date ASC");
-  // $stmt->bind_param("d", $_SESSION['id']); 
-  // $stmt->execute();
-  // $result = $stmt->get_result();
+  } else {
+  $stmt = $conn->prepare("SELECT * 
+          FROM todo 
+          WHERE user_id = (?)
+          ORDER BY due_date ASC");
+  $stmt->bind_param("d", $_SESSION['id']); 
+  $stmt->execute();
+  $result = $stmt->get_result();
 }
 
 if ($result->num_rows > 0) {
@@ -96,6 +96,7 @@ if ($result->num_rows > 0) {
         $html .= "</form>";
         $html .= "<span class='days-left'> $days days left untill due date</span>";
         $html .= "</form>";
+
         $html .= "</div>";
         echo $html;
     }
