@@ -67,6 +67,14 @@ if ($result->num_rows > 0) {
 
         $jobid = $row["id"];
         $job = $row["job"];
+
+        if(isset($row['due_date'])) {
+          $duedate = $row['due_date'];
+        } else {
+          $duedate = "2020-06-20";
+        }
+
+
         // $isDone = $row["done"];
         // $job = $row["job"];
         $html = "<div class='$classes'>";
@@ -74,6 +82,7 @@ if ($result->num_rows > 0) {
         $html .= "ID: " . $row["id"];
         $html .= "<input type='checkbox' name='isDone' $checked>";
         $html .= " <input name='jobName' value='$job'>";
+        $html .= " <input type='date' name='dueDate' value='$duedate'>";
         $html .= " ADDED: " . $row["added"];
         $html .= " UPDATED: " . $row["updated"];
         $html .= " <button type='submit' name='updateJob' value='$jobid'>";
