@@ -1,9 +1,8 @@
-<div class="login-form">
-    <form action="login.php" method="post">
-        <!-- <label for="userName">USERNAME</label> -->
-        <input type="text" name="username" placeholder="Username">
-        <!-- <input type="email" name="email" placeholder="email@domain.ext"> -->
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit" name ="login">LOGIN</button>
-    </form>
-</div>
+
+<form action="login.php" method="post" class="form-inline">
+    <div class="login-form form-row align-items-center"></div>
+        <input type="text" class="form-control mb-2" id="inlineFormInput" name="username" placeholder="Username">
+        <input type="password" class="form-control mb-2" id="inlineFormInput" name="password" placeholder="Password">
+        <button type="submit" class="btn btn-secondary mb-2" name ="login">LOGIN</button>
+    </div>
+</form>

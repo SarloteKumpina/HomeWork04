@@ -1,5 +1,4 @@
 <?php
-// echo "Hello June 16th!";
 session_start();
 require_once "../config/config.php";
 require_once "../src/templates/header.php";
@@ -18,11 +17,13 @@ if(isset($_GET['sucessfull_login'])) {
   include "../src/templates/sucessfullLogin.html";
 }
 
-echo "Hello " . $_SESSION['user'] . " your id is " . $_SESSION['id'] . "<hr>";
+echo "<div class='welcome-user'>Welcome " . $_SESSION['user'] . "! Check out your \"To Do List\". </div><hr>";
+// echo "Welcome " . $_SESSION['user'] . "! Check out your 'To Do List'. "id is " . $_SESSION['id'] . "<hr>";
 
 include "../src/templates/logoutForm.html";
+include "../src/templates/addTaskForm.html";
 include "../src/templates/searchForm.html";
-include "../src/templates/addJobForm.html";
+
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -33,41 +34,39 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // echo "Connected successfully";
 
 
-if(isset($_GET['dueDate']) || isset($_GET['jobName'])) {
+if(isset($_GET['dueDate']) || isset($_GET['taskName'])) {
     $dueDate = "%" . $_GET['dueDate'] . "%";
-    $jobName = "%" . $_GET['jobName'] . "%";
+    $taskName = "%" . $_GET['taskName'] . "%";
     $stmt = $conn->prepare("SELECT * 
             FROM todo 
             WHERE due_date LIKE (?)
-            AND job LIKE (?)
-            AND user_id = (?)");
-    $stmt->bind_param("ssd", $dueDate, $jobName, $_SESSION['id']); 
+            AND task LIKE (?)
+            AND user_id = (?)
+            ORDER BY due_date ASC");
+    $stmt->bind_param("ssd", $dueDate, $taskName, $_SESSION['id']); 
     $stmt->execute();
     $result = $stmt->get_result();
-  } else {
-  $stmt = $conn->prepare("SELECT * 
-          FROM todo 
-          WHERE user_id = (?)");
-  $stmt->bind_param("d", $_SESSION['id']); 
-  $stmt->execute();
-  $result = $stmt->get_result();
+  // } else {
+  // $stmt = $conn->prepare("SELECT * 
+  //         FROM todo 
+  //         WHERE user_id = (?)
+  //         ORDER BY due_date ASC");
+  // $stmt->bind_param("d", $_SESSION['id']); 
+  // $stmt->execute();
+  // $result = $stmt->get_result();
 }
 
 if ($result->num_rows > 0) {
-    // echo "Cool we got " . $result->num_rows . " rows of data!<hr>";
-    // output data of each row
     while ($row = $result->fetch_assoc()) {
-        // var_dump($row);
-        
-        $classes = "job-to-do";
+        $classes = "task-to-do";
         $checked = "";
         if ($row["done"]) {
-          $classes .= " job-done";
+          $classes .= " task-done";
           $checked = "checked";
         }
 
-        $jobid = $row["id"];
-        $job = $row["job"];
+        $taskid = $row["id"];
+        $task = $row["task"];
 
         if(isset($row['due_date'])) {
           $duedate = $row['due_date'];
@@ -77,30 +76,31 @@ if ($result->num_rows > 0) {
         $setduedate = date_create($duedate);
         $today = date_create(date("Y-m-d"));
         $days = date_diff($today, $setduedate)->format('%r%a');
-
-        $html = "<div class='$classes'>";
-        $html .= "<form action='updateJob.php' method='post'>";
+        
+        $html = "<hr>";
+        $html .= "<div class='$classes'>";
+        $html .= "<form action='updateTask.php' method='post'>";
         // $html .= "ID: " . $row["id"];
-        $html .= " JOB: ";
+        $html .= " TASK: ";
         $html .= "<input type='checkbox' name='isDone' $checked>";
-        $html .= " <input name='jobName' value='$job'>";
-        $html .= "DUE DATE: ";
+        $html .= " <input name='taskName' value='$task'>";
+        $html .= " DUE DATE: ";
         $html .= " <input type='date' name='dueDate' value='$duedate'>";
         // $html .= " ADDED: " . $row["added"];
         // $html .= " UPDATED: " . $row["updated"];
-        $html .= " <button type='submit' name='updateJob' value='$jobid'>";
-        $html .= "UPDATE JOB</button>";
-        $html .= "<form action='deleteJob.php' method='post'>";
-        $html .= "<button type='submit' name='deleteJob' value= '$jobid'>";
-        $html .= "DELETE JOB</button>";
+        $html .= " <button type='submit' class='btn btn-secondary mb-2' name='updateTask' value='$taskid'>";
+        $html .= "UPDATE TASK</button>";
+        $html .= "<form action='deleteTask.php' method='post'>";
+        $html .= "<button type='submit' class='btn btn-secondary mb-2' name='deleteTask' value= '$taskid'>";
+        $html .= "DELETE TASK</button>";
         $html .= "</form>";
-        $html .= "<span class='days-left'>$days days left untill due date</span>";
+        $html .= "<span class='days-left'> $days days left untill due date</span>";
         $html .= "</form>";
         $html .= "</div>";
         echo $html;
     }
   } else {
-    echo "Zero results";
+    echo "<div class='zero-results'>Zero results</div>";
   }
 
 require_once "../src/templates/footer.html";

@@ -1,26 +1,57 @@
 body {
-    background-color: gray;
+    background-color: #9c9c9c;
+    margin: 20px;
+}
+footer {
+    background-color: #9c9c9c;
+    margin: 20px;
 }
 
 .login-form {
-    background-color: seagreen;
+    background-color: #dfff50
+    margin: 10px;
 }
 
 .sign-up-form {
-    background-color: cadetblue;
+    background-color: #ffb950
+    margin: 10px;
 }
 
-.job-to-do {
+.task-to-do {
     margin: 10px;
-    background-color: darkcyan;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #ffb950
 }
 
-.job-done {
+.task-done {
     margin: 10px;
-    background-color: rgb(35, 177, 90)
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #dfff50
 }
 
 .days-left {
     display: block;
     border: 5px;
+}
+
+.to-do-list-button {
+    margin: 5px;
+}
+
+.sucessfull-login {
+    color: #ffb950;
+    font-size: large
+}
+
+.welcome-user {
+    color: #dfff50;
+    font-size: large
+}
+
+.zero-results{
+    color: #ffb950;
+    font-size: large
+}
 }

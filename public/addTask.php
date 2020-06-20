@@ -2,7 +2,7 @@
 require "../src/checkSession.php";
 
 //TODO add more checks for REQUEST type and songName and artistName validity
-if (!isset($_POST['addJob'])){
+if (!isset($_POST['addTask'])){
     header("Location: /");
 }
 
@@ -10,14 +10,14 @@ if (!isset($_POST['addJob'])){
 
 require_once "../config/config.php";
 $conn = new mysqli($servername, $username, $password, $dbname);
-$jobName = $_POST['jobName'];
-$duedate = $_POST['jobDueDate'];
+$taskName = $_POST['taskName'];
+$duedate = $_POST['taskDueDate'];
 $userid = $_SESSION['id'];
 
 $stmt = $conn->prepare("INSERT INTO 
-        todo (job, due_date, user_id) 
+        todo (task, due_date, user_id) 
         VALUE ((?), (?), (?))");
-$stmt->bind_param("ssd", $jobName, $duedate, $userid);
+$stmt->bind_param("ssd", $taskName, $duedate, $userid);
 $stmt->execute();
 header("Location: /");
 
