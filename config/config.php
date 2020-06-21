@@ -2,4 +2,4 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "todolist";
+$dbname = "newtodolist";
