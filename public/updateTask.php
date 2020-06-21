@@ -1,7 +1,6 @@
 <?php
 require "../src/checkSession.php";
 
-
 if (!isset($_POST['updateTask'])){
     header("Location: /");
 }
@@ -17,7 +16,7 @@ if(isset($_POST['isDone'])) {
 } else {
     $isDone = 0;
 }
-// $checked = $_POST['isDone'];
+
 $stmt = $conn->prepare("UPDATE todo 
             SET done = (?) ,task = (?), 
             updated = CURRENT_TIMESTAMP(), 

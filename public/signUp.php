@@ -25,8 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
-            // var_dump($row);
-            // die("for now");
             
             $_SESSION['user'] = $row['user_name'];
             $_SESSION['id'] = $row['user_id'];
@@ -35,5 +33,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     header("Location: /");    
     }
 }
-// header("Location: /");
+
 

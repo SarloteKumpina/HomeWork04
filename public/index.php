@@ -18,22 +18,12 @@ if(isset($_GET['sucessfull_login'])) {
 }
 
 echo "<div class='welcome-user'>Welcome " . $_SESSION['user'] . "! Check out your \"To Do List\". </div><hr>";
-// echo "Welcome " . $_SESSION['user'] . "! Check out your 'To Do List'. "id is " . $_SESSION['id'] . "<hr>";
 
 include "../src/templates/logoutForm.html";
 include "../src/templates/searchForm.html";
 include "../src/templates/addTaskForm.html";
 
-
-
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-//CHECK FOR CONNECTION LATER DELETE
-// if($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
-// echo "Connected successfully";
-
 
 if(isset($_GET['dueDate']) || isset($_GET['taskName'])) {
     $dueDate = "%" . $_GET['dueDate'] . "%";
@@ -78,8 +68,8 @@ if ($result->num_rows > 0) {
         $today = date_create(date("Y-m-d"));
         $days = date_diff($today, $setduedate)->format('%r%a');
         
-        // $html = "<hr>";
-        $html = "<div class='$classes'>";
+        $html = "<hr>";
+        $html .= "<div class='$classes'>";
         $html .= "<form action='updateTask.php' method='post'>";
         // $html .= "ID: " . $row["id"];
         $html .= " TASK: ";
@@ -91,17 +81,17 @@ if ($result->num_rows > 0) {
         // $html .= " UPDATED: " . $row["updated"];
         $html .= "<button type='submit' class='btn btn-secondary mb-2' name='updateTask' value='$taskid'>";
         $html .= "UPDATE TASK</button>";
+        $html .= "</form>";
         $html .= "<form action='deleteTask.php' method='post'>";
         $html .= "<button type='submit' class='btn btn-secondary mb-2' name='deleteTask' value='$taskid'>";
         $html .= "DELETE TASK</button>";
         $html .= "</form>";
         $html .= "<span class='days-left'> $days days left untill due date</span>";
-        $html .= "</form>";
         $html .= "</div>";
         echo $html;
     }
   } else {
     echo "<div class='zero-results'>Zero results</div>";
-  }
+}
 
 require_once "../src/templates/footer.html";

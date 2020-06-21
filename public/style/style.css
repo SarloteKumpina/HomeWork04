@@ -4,7 +4,6 @@ body {
 }
 footer {
     background-color: #9c9c9c;
-    /* margin: 10px; */
 }
 
 .login-form {
@@ -42,17 +41,26 @@ footer {
 
 .sucessfull-login {
     color: #ffb950;
-    font-size: large
+    font-size: large;
+    margin: 5px;
+}
+
+.unsucessfull-login {
+    color: #ffb950;
+    font-size: large;
+    margin: 5px;
 }
 
 .welcome-user {
     color: #dfff50;
-    font-size: large
+    font-size: large;
+    margin: 5px;
 }
 
 .zero-results{
     color: #ffb950;
     font-size: large
+    margin: 5px;
 }
 
 .login-username {
